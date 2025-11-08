@@ -66,7 +66,7 @@ X APIまたはHTML抽出で `いいね数 / リポスト数 / 閲覧数` など�
 
 ### ⏳ #6 GitHub Actionsで自動デプロイを整備する
 コード修正時に自動でGCPにデプロイできるCIを整備する。
-test!
+testt
 
 ---
 </details>
