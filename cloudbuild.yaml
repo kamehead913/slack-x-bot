@@ -1,0 +1,5 @@
+steps:
+  - name: 'gcr.io/cloud-builders/gcloud'
+    args: ['functions', 'deploy', 'slack_x_bot', '--runtime', 'python310', '--trigger-http', '--entry-point', 'main', '--region', 'asia-northeast1', '--allow-unauthenticated']
+
+timeout: 540s
