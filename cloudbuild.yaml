@@ -1,17 +1,19 @@
 steps:
+  # Pythonアプリをビルド
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'gcr.io/$PROJECT_ID/slack-x-bot', '.']
+
+  # Cloud Run にデプロイ
   - name: 'gcr.io/cloud-builders/gcloud'
-    args:
-      - functions
-      - deploy
-      - slack_x_bot
-      - --entry-point=main
-      - --runtime=python310
-      - --trigger-http
-      - --allow-unauthenticated
-      - --region=asia-northeast1
-      - --source=.
+    args: [
+      'run', 'deploy', 'slack-x-bot',
+      '--image', 'gcr.io/$PROJECT_ID/slack-x-bot',
+      '--region', 'asia-northeast1',
+      '--platform', 'managed',
+      '--allow-unauthenticated'
+    ]
 
-timeout: 540s
+images:
+  - 'gcr.io/$PROJECT_ID/slack-x-bot'
 
-options:
-  logging: CLOUD_LOGGING_ONLY
+timeout: 900s
