@@ -117,6 +117,10 @@ def main(request):
         # リクエストからパラメータを取得
         request_json = request.get_json(silent=True)
         request_args = request.args
+                # ✅ Slack Event APIの challenge 検証
+        if request_json and 'challenge' in request_json:
+            return json.dumps({'challenge': request_json['challenge']}), 200
+
         
         if request_json and 'tweet_url' in request_json:
             tweet_url = request_json['tweet_url']
