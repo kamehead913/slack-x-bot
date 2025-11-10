@@ -118,8 +118,16 @@ def main(request):
         request_json = request.get_json(silent=True)
         request_args = request.args
                 # ✅ Slack Event APIの challenge 検証
-        if request_json and 'challenge' in request_json:
-            return json.dumps({'challenge': request_json['challenge']}), 200
+        from flask import Response  # ← 追加
+
+# challenge検証のレスポンス
+if request_json and request_json.get("type") == "url_verification":
+    return Response(
+        json.dumps({'challenge': request_json['challenge']}),
+        status=200,
+        mimetype='application/json'
+    )
+
 
         
         if request_json and 'tweet_url' in request_json:
